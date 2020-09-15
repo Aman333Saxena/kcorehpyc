@@ -1,0 +1,36 @@
+# -*- MakeFile -*-
+
+# target: dependencies
+#     action
+
+CC       ?= gcc
+
+CFLAGS   += -W 
+            -g -Wall 
+            -Werror
+            -I./include
+
+Target  := $(shell basename `pwd`)
+
+
+Srcs := $(wildcard *.c)
+Srcs := $(wildcard aes/*.c)
+Srcs := $(wildcard chacha20poly1305/*.c)
+Srcs := $(wildcard ed25519-donna/*.c)
+Srcs := $(wildcard monero/*.c)
+Srcs := $(wildcard tests/*.c)
+Srcs := $(wildcard tools/*.c)
+Srcs := $(wildcard cd main.c)
+
+Deps := $(Srcs:.c=.d)
+Objs := $(Srcs:.c=.o)
+
+all: ${Target}
+
+-include $(Deps)
+
+%.o: %.c %.h options.h
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+clean:
+	rm -f $(Target) $(Objs) $(Deps)
