@@ -17,7 +17,7 @@ Considered even length input string, odd length string can be first operated by 
   
     Completed the given functional signature to calculate the entropy of the given mnemonic. The given mnemonic consists of 24 phrases. First, we check if the basic conditions are fulfilled or not. Then we find the actual position of each phares in the Word List provided in the additional header file. After finding the index we convert it into the byte codes and return the final entropy value of the mnemonic.  
 
-- Task 3
+- [Task 3](https://github.com/Aman333Saxena/kcorehpyc/blob/master/third.c)
 
   Derived Address & Private keys from a given mnemonics
   
@@ -30,3 +30,5 @@ Considered even length input string, odd length string can be first operated by 
   6. Derive Chain node from Account node (index = 00000000 or index = 00000001 in hex)
   7. Derive Address Keys from Chain node (index = 00000000 to ffffffff in hex)
   8. Private Keys can be simultaneously derived as with Address keys.
+  
+
