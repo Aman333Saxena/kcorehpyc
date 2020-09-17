@@ -349,13 +349,13 @@ uint32_t print_hd_node (HDNode *node)
     {
         printf("%02hhx", node->public_key[i]);
     }
-    printf("%s", node->curve);
+    printf("%s\n", node->curve);
     return 1;
 }
 
 int main()
 {
-    const char mnemonic = "garden reject beauty inch scissors rifle amazing couch bacon multiply swim poverty impose spray ugly term stamp prevent nothing mutual awful project wrist movie";
+    const char mnemonic = "century live slot glad flame boat rice promote under rabbit vintage copper eternal fault system despair blind bind witness code tunnel seek praise high";
     char passphrase = "";
     int seed_len = 512 / 8;
     uint8_t seed[seed_len], by, pby[64];
@@ -365,11 +365,17 @@ int main()
         printf("%02hhx", seed[i]);
     }
 
-    char curve = "CURVE25519_NAME";
+    char curve = "secp256k1";                                         // from secp256k1.h library
     HDNode inout;
     int make_HDnode = hdnode_from_seed(seed, seed_len, curve, inout); // Derived master node from bip39 seeds (index = 00000000 in hex)
 
     uint32_t print_master_node = print_hd_node(inout);
+
+    for (uint32_t i = 0; i < 32; i++)
+    {
+        printf("%02hhx", inout->chain_code[i]);
+    }
+    printf("\n");
 
     uint32_t fingerprint = hdnode_fingerprint(inout);
     uint8_t digest[32], sig[64];
@@ -404,10 +410,17 @@ int main()
     // m/44’/1’/0’/1/0
 
     uint32_t get_private_keys = hdnode_private_ckd(inout, address_node_index); //Derived private keys from address node (index = 00000000 in hex)
-    for (uint32_t i = 0; i < 32; i++)
+    for (uint32_t i = 0; i < 26; i++)
     {
         printf("%02hhx", inout->private_key[i]);
     }
+    printf("\n");
+
+    for (uint32_t i = 0; i < 33; i++)
+    {
+        printf("%02hhx", inout->public_key[i]);
+    }
+    
     
     return 0;
 }
